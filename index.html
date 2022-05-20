@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>	</title>
+	<style type="text/css">
+		.sphere {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			border-radius: 100px;
+			transition: all 0.8s ease-out;
+			top: 0px;
+		}
+		.ground {
+			position: absolute;
+			width: 1900px;
+			height: 50px;
+			top:  900px;
+			background-image: url(wave1.png);
+			background-size: 100% 100%;
+		}
+	</style>
+</head>
+<body>
+
+<div class="ground">
+	
+</div>
+<script type="text/javascript">
+	let pictures =["url(toster.png)","url(phone.png)","url(phen.png)"]
+	let random = function(arg){
+			let random = Math.round(Math.random() * arg);
+			return random;
+	}
+
+	
+
+	let TopS = 0
+	for (let i = 0; i < 15; i = i + 1) {
+		let sphere = document.createElement("div")
+		document.body.appendChild(sphere)
+		sphere.classList.add("sphere")
+		sphere.style.left = random(1800) + "px"
+		sphere.style.backgroundImage = pictures[random(2)]
+		for (let i = 0; i < 15; i = i + 1) {
+			sphere.style.backgroundSize ="100% 100%"
+		}
+	}
+
+	let sphereS = document.querySelectorAll(".sphere")
+	let sphereIndex = 0
+		
+	for(let i = 0; i < 15; i = i + 1){
+		sphereS[i].onclick = function(){
+			sphereS[i].style.display ="none"
+		}
+	}
+
+	let sphereFall = function(){
+		TopS = TopS + 150;
+		sphereS[sphereIndex].style.top = TopS + "px";
+		if(TopS>=1050){
+			TopS = 0;
+			sphereS[sphereIndex].style.display ="none";
+			sphereIndex = sphereIndex + 1;
+			if(sphereIndex == 15){
+				stopGame()
+			}
+		}
+	}
+	let myInt = setInterval(sphereFall, 300)
+	let stopGame = function(){
+		clearInterval(myInt)
+	}
+</script>
+</body>
+</html>
